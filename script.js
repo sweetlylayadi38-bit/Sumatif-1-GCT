@@ -5,7 +5,12 @@ document.addEventListener('click',e=>{const f=e.target.closest('.fig');
 // Pilih jawaban: klik pilihan, benar jadi hijau, salah jadi merah dan kunci ditandai hijau. Sekali pilih per soal.
 const pick=li=>{const ol=li.parentNode;if(ol.dataset.done)return;ol.dataset.done=1;
   const k=ol.children[ol.dataset.k];li.classList.add(li===k?'ok':'no');k.classList.add('ok')};
-document.addEventListener('click',e=>{const li=e.target.closest('ol[data-k]>li');if(li)pick(li)});
+// Reset: kosongkan warna dan tutup pembahasan, per soal (.rst) atau semua (#rstall).
+const reset=ol=>{delete ol.dataset.done;for(const l of ol.children)l.className='';ol.closest('.q').querySelector('details').open=false};
+document.addEventListener('click',e=>{const t=e.target,li=t.closest('ol[data-k]>li');
+  if(li)pick(li);
+  else if(t.matches('.rst'))reset(t.previousElementSibling);
+  else if(t.id==='rstall')document.querySelectorAll('ol[data-done]').forEach(reset)});
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('ol[data-k]>li')){e.preventDefault();pick(e.target)}});
 
 // Pemutar musik: pilih lagu lewat <select>, lanjut otomatis ke lagu berikutnya.

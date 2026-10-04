@@ -76,6 +76,12 @@ footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;color:v
 .q ol[data-done]>li{cursor:default}
 .q li.ok{border-color:#4fce8a;background:rgb(60 170 105 / .38);color:#e6fff0}
 .q li.no{border-color:#f0685c;background:rgb(214 72 60 / .38);color:#ffe9e6}
+.rst{display:none;font:600 .88rem var(--body);color:var(--muted);background:none;border:1px solid var(--line);border-radius:var(--r);padding:.4rem .8rem;min-height:44px;margin:.3rem 0 0;cursor:pointer;transition:color .15s,border-color .15s}
+.rst:hover{color:var(--accent);border-color:var(--accent)}
+.rst:active,button.cta:active{transform:translateY(1px)}
+.q ol[data-done]+.rst{display:inline-flex;align-items:center}
+button.cta{font:inherit;font-weight:600;color:var(--accent);background:none;cursor:pointer}
+.years .cta{margin:0}
 .q li.ok::after{content:" (benar)";font-weight:600}
 .q li.no::after{content:" (salah)";font-weight:600}
 .qi{display:block;max-width:min(100%,30rem);height:auto;background:#fff;border-radius:var(--r);margin:.6rem 0}
