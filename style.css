@@ -82,6 +82,7 @@ footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;color:v
 .q ol[data-done]+.rst{display:inline-flex;align-items:center}
 button.cta{font:inherit;font-weight:600;color:var(--accent);background:none;cursor:pointer}
 .years .cta{margin:0}
+.src+.rstall{margin:0 0 .4rem}
 .q li.ok::after{content:" (benar)";font-weight:600}
 .q li.no::after{content:" (salah)";font-weight:600}
 .qi{display:block;max-width:min(100%,30rem);height:auto;background:#fff;border-radius:var(--r);margin:.6rem 0}
