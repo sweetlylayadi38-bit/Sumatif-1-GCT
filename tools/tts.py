@@ -6,6 +6,8 @@ API key hanya dibaca dari environment, tidak pernah ditulis ke repo.
 """
 import argparse, glob, html, json, os, re, sys, time, urllib.request, urllib.error
 from concurrent.futures import ThreadPoolExecutor
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ucap import ucap
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUD = os.path.join(ROOT, 'audio')
@@ -15,19 +17,29 @@ def plain(h):
     return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', h))).strip()
 
 def bacaan(art):
-    """Teks yang dibacakan: soal, pilihan, jawaban, pembahasan. Tanpa label, gambar, catatan berkas, dan tautan sumber."""
+    """Teks yang dibacakan, dalam gaya tutor: nomor, soal, pilihan, jawaban, penjelasan.
+    Tanpa label, gambar, catatan berkas, dan tautan sumber; simbol dan singkatan diubah ke ucapan (tools/ucap.py)."""
     if '<ol' not in art: return None                      # soal tidak lengkap di berkas
     no = re.search(r'<h3><span>([^<]*)</span>', art).group(1)
     a = re.sub(r'<h3>.*?</h3>|<div class="figs">.*?</div>|<ul class="srcq">.*?</ul>|<p class="note">.*?</p>'
                r'|<button.*?</button>|<summary>.*?</summary>|<img[^>]*>', '', art, flags=re.S)
     soal, _, bahas = a.partition('<details>')
     tanya, _, rest = soal.partition('<ol')
-    pilihan = ' '.join(f'{"ABCDEFGH"[i]}. {plain(x)}.' for i, x in enumerate(re.findall(r'<li[^>]*>(.*?)</li>', rest, re.S)))
-    bahas = plain(bahas.replace('</p>', '. '))
-    t = f'Soal nomor {no}. {plain(tanya)} Pilihan jawaban: {pilihan} {bahas}'
-    t = re.sub(r'\s*\((?:PPT )?K\d+[^)]*\)|\bPPT K\d+(?:, slide \d+)?:\s*', '', t)   # rujukan slide tidak dibacakan
+    opsi = [re.sub(r'^[A-H][.)]\s+', '', plain(x)).rstrip('.') for x in re.findall(r'<li[^>]*>(.*?)</li>', rest, re.S)]
+    pilihan = ' '.join(f'{"ABCDEFGH"[i]}, {x}.' for i, x in enumerate(opsi))
+    m = re.search(r'<p class="ans">(.*?)</p>', bahas, re.S)
+    jawab = ''
+    if m:
+        bahas = bahas.replace(m.group(0), '')
+        k = re.match(r'\s*Jawaban:\s*([A-H])\.?\s*(.*)', plain(m.group(1)))
+        jawab = f'Jawabannya {k.group(1)}, {k.group(2).rstrip(".")}.' if k else plain(m.group(1))
+    sisa = plain(bahas.replace('</p>', '. '))
+    sisa = re.sub(r'\s*\((?:PPT )?K\d+[^)]*\)|\bPPT K\d+(?:, slide \d+)?:\s*', '', sisa)   # rujukan slide tidak dibacakan
+    t = f'Nomor {no}. {plain(tanya)} Pilihannya. {pilihan} JEDA {jawab} ' + (f'Penjelasannya. {sisa[:1].upper()}{sisa[1:]}' if sisa else '')
     t = t.replace('(-)', ' negatif').replace('(+)', ' positif')
-    return re.sub(r'([.?!:])(\s*\.)+', r'\1', t)
+    t = ucap(t).replace(' ... ', ' ... ').replace(', artinya ', ', artinya ')
+    t = re.sub(r'([.?!:])(\s*\.)+', r'\1', t)
+    return t.replace(' JEDA ', ' <break time="2.0s" /> ')   # waktu berpikir sebelum jawaban (didukung model v2/v2.5)
 
 def semua():
     for f in sorted(glob.glob(os.path.join(ROOT, 'soal', '*.js'))):
@@ -39,7 +51,7 @@ def tts(key, voice, model, qid, text):
     out = os.path.join(AUD, qid + '.mp3')
     req = urllib.request.Request(
         f'https://api.elevenlabs.io/v1/text-to-speech/{voice}?output_format=mp3_22050_32',
-        data=json.dumps({'text': text, 'model_id': model, 'language_code': 'id',
+        data=json.dumps({'text': text, 'model_id': model, **({'language_code': 'id'} if 'v2_5' in model else {}),
                          'voice_settings': {'stability': .52, 'similarity_boost': 1.0, 'speed': .98}}).encode(),
         headers={'xi-api-key': key, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg'})
     for coba in range(5):
