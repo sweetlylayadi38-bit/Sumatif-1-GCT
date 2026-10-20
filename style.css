@@ -79,7 +79,7 @@ a.kt:hover{border-color:var(--accent)}
 .q ol[data-k]>li{cursor:pointer;padding:.4rem .6rem;margin:.15rem 0;border:1px solid transparent;border-radius:var(--r);transition:background .15s,border-color .15s}
 .q ol[data-k]:not([data-done])>li:hover{background:var(--accent-soft)}
 .q ol[data-done]>li{cursor:default}
-.q li.ok{border-color:#4fce8a;background:rgb(60 170 105 / .38);color:#e6fff0}
+.q li.ok,.lihat-kunci .q li.key{border-color:#4fce8a;background:rgb(60 170 105 / .38);color:#e6fff0}
 .q li.no{border-color:#f0685c;background:rgb(214 72 60 / .38);color:#ffe9e6}
 .rst{display:none;font:600 .88rem var(--body);color:var(--muted);background:none;border:1px solid var(--line);border-radius:var(--r);padding:.4rem .8rem;min-height:44px;margin:.3rem 0 0;cursor:pointer;transition:color .15s,border-color .15s}
 .rst:hover{color:var(--accent);border-color:var(--accent)}
@@ -100,6 +100,7 @@ summary::-webkit-details-marker{display:none}
 details>p{margin:.45rem 0}
 .ans{background:var(--accent-soft);border-left:2px solid var(--accent);padding:.55rem .8rem}
 .note{color:var(--muted);font-size:.95rem}
+.skor{font-weight:600;margin:.6rem 0 0;font-variant-numeric:tabular-nums}
 .years{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 0}
 .srcq{color:var(--muted);font-size:.88rem;padding-left:1.1rem}
 .q .figs{grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));margin:.6rem 0}

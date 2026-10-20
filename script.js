@@ -6,7 +6,7 @@ document.addEventListener('click',e=>{const f=e.target.closest('.fig');
 const pick=li=>{const ol=li.parentNode;if(ol.dataset.done)return;ol.dataset.done=1;
   const k=ol.children[ol.dataset.k];li.classList.add(li===k?'ok':'no');k.classList.add('ok')};
 // Reset: kosongkan warna dan tutup pembahasan, per soal (.rst), per tahun, atau semua (.rstall).
-const reset=ol=>{delete ol.dataset.done;for(const l of ol.children)l.className='';ol.closest('.q').querySelector('details').open=false};
+const reset=ol=>{delete ol.dataset.done;for(const l of ol.children)l.classList.remove('ok','no');ol.closest('.q').querySelector('details').open=false};
 // .rstall di dalam section tahun (id y2023 dst.) hanya mereset tahun itu; di luar itu mereset seluruh bank soal.
 // Pembahasan yang dibuka tanpa menjawab (termasuk soal tanpa pilihan) ikut ditutup.
 const resetAll=b=>{const s=b.closest('[id^="y2"]')||document,ol=s.querySelectorAll('ol[data-done]'),d=s.querySelectorAll('.q details[open]');
@@ -15,8 +15,20 @@ const resetAll=b=>{const s=b.closest('[id^="y2"]')||document,ol=s.querySelectorA
 document.addEventListener('click',e=>{const t=e.target,li=t.closest('ol[data-k]>li');
   if(li)pick(li);
   else if(t.matches('.rst'))reset(t.previousElementSibling);
-  else if(t.matches('.rstall'))resetAll(t)});
-document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('ol[data-k]>li')){e.preventDefault();pick(e.target)}});
+  else if(t.matches('.rstall'))resetAll(t);
+  else if(t.matches('.kunci'))kunci(t);
+  else return;
+  skor()});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('ol[data-k]>li')){e.preventDefault();pick(e.target);skor()}});
+// Skor: global (di #soal) dan per tahun (disisipkan di bawah tombol reset tahun). Benar = soal dijawab tanpa pilihan merah.
+document.querySelectorAll('[id^="y2"]>.rstall').forEach(b=>b.insertAdjacentHTML('afterend','<p class="skor" aria-live="polite"></p>'));
+const skor=()=>document.querySelectorAll('.skor').forEach(p=>{const s=p.closest('[id^="y2"]')||document,
+  n=s.querySelectorAll('ol[data-done]').length,x=s.querySelectorAll('ol[data-done]>li.no').length;
+  p.textContent=n?`Dijawab ${n} · Benar ${n-x} · Salah ${x} · Nilai ${Math.round((n-x)/n*100)}%`:'Belum ada soal yang dijawab.'});
+// Buka/tutup semua kunci: tandai pilihan benar (li.key) sekali, lalu tampilkan lewat kelas .lihat-kunci di body.
+const kunci=b=>{if(!document.querySelector('li.key'))document.querySelectorAll('ol[data-k]').forEach(o=>o.children[o.dataset.k]?.classList.add('key'));
+  b.textContent=document.body.classList.toggle('lihat-kunci')?'Sembunyikan jawaban benar':'Buka semua jawaban benar'};
+addEventListener('load',skor);
 
 // Pemutar musik: pilih lagu lewat <select>, lanjut otomatis ke lagu berikutnya.
 const au=document.getElementById('au'),trk=document.getElementById('trk');
