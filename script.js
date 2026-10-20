@@ -38,3 +38,12 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');i
 // Saring topik: sembunyikan soal yang tidak memuat label kuliah terpilih (label .kt dipasang di h3 tiap soal).
 document.getElementById('kf').addEventListener('change',e=>{const k=e.target.value;
   for(const q of document.querySelectorAll('#soal~section .q'))q.hidden=!!k&&!q.querySelector(`a.kt[href="#${k}"]`)});
+// Bacaan soal (ElevenLabs, MP3 di audio/): satu pemutar untuk semua tombol .tts; musik dijeda selama bacaan.
+const vo=new Audio();let vb=null;
+const vset=(b,on)=>{if(b){b.textContent=on?'❚❚ Jeda':'▶ Dengarkan';b.setAttribute('aria-pressed',on)}};
+vo.onended=vo.onpause=()=>vset(vb,false);vo.onplay=()=>vset(vb,true);
+document.addEventListener('click',e=>{const b=e.target.closest('.tts');if(!b)return;
+  if(b===vb&&!vo.paused){vo.pause();return}
+  if(b!==vb){vset(vb,false);vb=b;vo.src=b.dataset.a}
+  au.pause();vo.play().catch(()=>{b.textContent='Audio gagal dimuat'})});
+au.addEventListener('play',()=>vo.pause());
