@@ -104,6 +104,8 @@ details>p{margin:.45rem 0}
 .player{position:relative;width:fit-content;max-width:100%;margin-top:.9rem;background:rgb(13 13 16 / .96);border:1px solid var(--line);border-radius:var(--r);padding:0 .8rem}
 .player[open]{padding-bottom:.7rem;width:22rem}
 .player select,.player audio{display:block;width:100%;margin-top:.5rem}
-.player select{font:inherit;font-size:.92rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:.55rem .5rem;min-height:44px}
+.kf{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:1rem 0 0}
+.kf label{font-weight:600}
+.player select,.kf select{font:inherit;font-size:.92rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:.55rem .5rem;min-height:44px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 @media (min-width:90rem){.player{position:fixed;top:1rem;right:1rem;z-index:6;margin:0}}

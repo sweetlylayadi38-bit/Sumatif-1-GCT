@@ -29,3 +29,6 @@ load(false);
 window.soal=(id,html)=>document.getElementById(id).insertAdjacentHTML('beforeend',html);
 // Setelah semua soal masuk, ulangi lompatan ke #anchor (target mungkin baru ada sekarang).
 addEventListener('load',()=>{const t=location.hash&&document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView()});
+// Saring topik: sembunyikan soal yang tidak memuat label kuliah terpilih (label .kt dipasang di h3 tiap soal).
+document.getElementById('kf').addEventListener('change',e=>{const k=e.target.value;
+  for(const q of document.querySelectorAll('#soal~section .q'))q.hidden=!!k&&!q.querySelector(`a.kt[href="#${k}"]`)});
