@@ -27,8 +27,14 @@ load(false);
 
 // Bank soal: tiap berkas soal/<tahun>.js memanggil soal(id, html) untuk mengisi section-nya.
 window.soal=(id,html)=>document.getElementById(id).insertAdjacentHTML('beforeend',html);
-// Setelah semua soal masuk, ulangi lompatan ke #anchor (target mungkin baru ada sekarang).
-addEventListener('load',()=>{const t=location.hash&&document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView()});
+// Bagian di luar layar dirender belakangan (content-visibility), jadi tingginya baru perkiraan.
+// Setelah lompat ke #anchor, betulkan posisi sampai tidak bergeser lagi.
+const fixJump=()=>{const t=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));if(!t)return;
+  const h=document.documentElement,sb=h.style.scrollBehavior;h.style.scrollBehavior='auto';let n=0,ok=0,last;
+  const go=()=>{t.scrollIntoView();const y=t.getBoundingClientRect().top;ok=y===last?ok+1:0;last=y;if(ok<3&&++n<30)requestAnimationFrame(go);else h.style.scrollBehavior=sb};go()};
+addEventListener('hashchange',fixJump);
+addEventListener('load',fixJump);
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a&&a.hash===location.hash)requestAnimationFrame(fixJump)});
 // Saring topik: sembunyikan soal yang tidak memuat label kuliah terpilih (label .kt dipasang di h3 tiap soal).
 document.getElementById('kf').addEventListener('change',e=>{const k=e.target.value;
   for(const q of document.querySelectorAll('#soal~section .q'))q.hidden=!!k&&!q.querySelector(`a.kt[href="#${k}"]`)});

@@ -1,4 +1,5 @@
 body{margin:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 img{max-width:100%}
 /* Layout: artwork fixed di sisi kanan sebagai latar; kolom baca di kiri di atas panel gelap tembus pandang. Satu tema gelap, mengikuti artwork. */
 :root{
@@ -24,13 +25,13 @@ a{color:var(--accent)}
 .top h1{font:700 clamp(2rem,6vw,3.5rem)/1.08 var(--display);letter-spacing:-.02em;margin:.4rem 0 .9rem;text-wrap:balance}
 .eyebrow{font:600 .8rem/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0}
 .lede{max-width:46ch;color:var(--muted);margin:0}
-.strip{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;overflow-x:auto;background:rgb(13 13 16 / .94);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(10px)}
+.strip{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;overflow-x:auto;background:rgb(13 13 16 / .94);border:1px solid var(--line);border-radius:var(--r);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .strip a{flex:1 0 5rem;min-width:0;min-height:44px;display:grid;align-content:center;gap:2px;padding:.45rem .6rem;text-decoration:none;color:var(--fg);font-size:.78rem;line-height:1.2;border-right:1px solid var(--line);transition:background .15s}
 .strip a:last-child{border-right:0}
 .strip a:hover{background:var(--accent-soft)}
 .strip b{font:700 .95rem/1 var(--display);color:var(--accent)}
 .strip span{color:var(--muted)}
-.lec{margin-top:2.5rem;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem clamp(1rem,3vw,2rem) 2rem;backdrop-filter:blur(6px)}
+.lec{margin-top:2.5rem;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem clamp(1rem,3vw,2rem) 2rem;content-visibility:auto;contain-intrinsic-size:auto 3000px}
 @media (prefers-reduced-transparency:reduce){.lec,.strip{background:var(--bg);backdrop-filter:none}}
 h2{font:700 clamp(1.45rem,4vw,2rem)/1.2 var(--display);letter-spacing:-.01em;margin:0 0 .3rem;text-wrap:balance}
 .kn{display:inline-block;font-size:.58em;vertical-align:.3em;border:1px solid var(--accent);color:var(--accent);padding:.15em .5em;border-radius:var(--r);margin-right:.7em;letter-spacing:.04em}
@@ -65,7 +66,7 @@ footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;color:v
 .cta:hover{background:var(--accent-soft)}
 .cta:active{transform:translateY(1px)}
 
-.q{border-top:1px solid var(--line);padding-block:1.1rem .9rem;max-width:72ch}
+.q{border-top:1px solid var(--line);padding-block:1.1rem .9rem;max-width:72ch;content-visibility:auto;contain-intrinsic-size:auto 420px}
 .q h3{margin:0 0 .4rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;font-size:1rem}
 .q h3 span:first-child{font:700 1.05rem var(--display)}
 .tag{font:600 .74rem/1.2 var(--body);color:var(--muted);border:1px solid var(--line);border-radius:var(--r);padding:.2em .5em}
@@ -106,6 +107,6 @@ details>p{margin:.45rem 0}
 .player select,.player audio{display:block;width:100%;margin-top:.5rem}
 .kf{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:1rem 0 0}
 .kf label{font-weight:600}
-.player select,.kf select{font:inherit;font-size:.92rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:.55rem .5rem;min-height:44px}
+.player select,.kf select{font:inherit;font-size:1rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:.55rem .5rem;min-height:44px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 @media (min-width:90rem){.player{position:fixed;top:1rem;right:1rem;z-index:6;margin:0}}
