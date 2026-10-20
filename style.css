@@ -69,6 +69,8 @@ footer{margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem;color:v
 .q h3{margin:0 0 .4rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;font-size:1rem}
 .q h3 span:first-child{font:700 1.05rem var(--display)}
 .tag{font:600 .74rem/1.2 var(--body);color:var(--muted);border:1px solid var(--line);border-radius:var(--r);padding:.2em .5em}
+.kt{color:var(--fg);text-decoration:none}
+a.kt:hover{border-color:var(--accent)}
 .tag.warn{color:var(--accent);border-color:var(--accent)}
 .q ol{padding-left:1.6rem;margin:.5rem 0}
 .q ol[data-k]>li{cursor:pointer;padding:.4rem .6rem;margin:.15rem 0;border:1px solid transparent;border-radius:var(--r);transition:background .15s,border-color .15s}
