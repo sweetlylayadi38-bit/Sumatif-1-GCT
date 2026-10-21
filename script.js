@@ -88,3 +88,8 @@ const bukaCari=on=>{if(matchMedia('(min-width:88rem)').matches)on=true;document.
 cb.addEventListener('click',()=>bukaCari(true));
 cari.querySelector('.cari-x').addEventListener('click',()=>bukaCari(false));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('cari-buka'))bukaCari(false)});
+// Rangkuman K1-K10: buka/tutup semua kuliah; tautan ke #rk-kN langsung membuka kuliah itu.
+const rks=[...document.querySelectorAll('#ringkas>details')],rkx=document.querySelector('.rkx');
+rkx.addEventListener('click',()=>{const on=rks.some(d=>!d.open);rks.forEach(d=>d.open=on);rkx.textContent=on?'Tutup semua':'Buka semua'});
+const bukaRk=()=>{const d=document.getElementById(location.hash.slice(1));if(d&&rks.includes(d))d.open=true};
+addEventListener('hashchange',bukaRk);bukaRk();

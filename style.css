@@ -127,6 +127,19 @@ details>p{margin:.45rem 0}
 .rk details ul{margin:.1rem 0 .4rem}
 .rk details li{margin:.35rem 0}
 .rk details p{margin:.2rem 0 .9rem}
+/* Rangkuman lengkap per kuliah: subjudul, kotak "sering keluar" (aksen) dan "jebakan" (merah lembut), tautan soal kecil */
+.rkb{padding:.1rem 0 1.4rem}
+.rks{color:var(--muted);font-size:.9rem}
+.rk h4{font:600 1.02rem/1.3 var(--display);color:var(--strong);margin:1.5rem 0 .3rem;text-wrap:balance}
+.rk .tw th,.rk .tw td{min-width:6rem}
+.hy,.trap{margin:1.6rem 0 0;padding:.2rem 1rem .6rem;border-left:2px solid var(--accent);background:var(--accent-soft);max-width:72ch}
+.trap{border-color:#d9786d;background:rgb(190 80 68 / .1)}
+.hy h4{color:var(--accent)}.trap h4{color:#e8998f}
+.qs{display:inline-flex;flex-wrap:wrap;gap:.3rem;vertical-align:baseline;margin-left:.2rem}
+.qs a{font:600 .78rem/1 var(--body);text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:var(--r);padding:.35em .5em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.qs a:hover{border-color:var(--accent);color:var(--accent)}
+.rkl{margin-top:1.2rem!important;font-weight:600}
+.rk-all{margin:.2rem 0 .8rem}
 /* Cari kunci jawaban: di HP tombol kanan bawah membuka panel; di layar lebar panel selalu di kanan */
 .cari-btn{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:7;font:600 1rem var(--body);color:var(--bg);background:var(--accent);border:0;border-radius:999px;padding:.7rem 1.1rem;min-height:48px;cursor:pointer;box-shadow:0 4px 18px rgb(0 0 0 / .45)}
 #cari{position:fixed;inset:auto 0 0 0;z-index:8;max-height:min(80vh,40rem);display:none;flex-direction:column;gap:.5rem;padding:.9rem 1rem calc(1rem + env(safe-area-inset-bottom,0px));background:rgb(24 22 20 / .98);border-top:1px solid var(--line);border-radius:10px 10px 0 0;box-shadow:0 -8px 30px rgb(0 0 0 / .5)}
