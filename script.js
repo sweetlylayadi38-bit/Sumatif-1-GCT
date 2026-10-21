@@ -59,3 +59,26 @@ document.addEventListener('click',e=>{const b=e.target.closest('.tts');if(!b)ret
   if(b!==vb){vset(vb,false);vb=b;vo.src=b.dataset.a}
   au.pause();vo.play().catch(()=>{b.textContent='Audio gagal dimuat'})});
 au.addEventListener('play',()=>vo.pause());
+// Cari kunci jawaban: indeks dibuat sekali saat pertama dipakai (soal sudah termuat), cocok bila semua kata ada.
+const cari=document.getElementById('cari'),q=document.getElementById('q'),hasil=cari.querySelector('.cari-hasil'),info=cari.querySelector('.cari-info'),cb=document.querySelector('.cari-btn');
+let idxQ=null;
+const norm=s=>s.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'');
+const buatIdx=()=>idxQ=[...document.querySelectorAll('#soal~section .q')].map(a=>{const ans=a.querySelector('.ans'),p=a.querySelector(':scope>p');
+  if(!ans)return null;const soal=p?p.textContent.trim():'',jw=ans.textContent.replace(/^\s*Jawaban:\s*/,'').trim();
+  return {a,id:a.id,th:a.id.slice(1,5),no:a.querySelector('h3 span').textContent,soal,jw,teks:norm(soal+' '+a.querySelector('ol')?.textContent+' '+ans.parentNode.textContent)}}).filter(Boolean);
+const cariKata=()=>{const kata=norm(q.value).split(/\s+/).filter(w=>w.length>1);hasil.replaceChildren();
+  if(!kata.length){info.textContent='Ketik minimal 2 huruf. Semua kata harus ada di soal, pilihan, atau jawaban.';return}
+  idxQ||buatIdx();const cocok=idxQ.filter(x=>kata.every(w=>x.teks.includes(w)));
+  info.textContent=cocok.length?`${cocok.length} soal ditemukan${cocok.length>40?', 40 pertama ditampilkan':''}.`:'Tidak ada soal yang cocok. Coba kata lain.';
+  for(const x of cocok.slice(0,40)){const li=document.createElement('li'),a=document.createElement('a');a.href='#'+x.id;
+    a.innerHTML='<b></b><span></span><em></em>';a.children[0].textContent=`${x.th} · No ${x.no}`;
+    a.children[1].textContent=x.soal.length>140?x.soal.slice(0,140)+'…':x.soal;a.children[2].textContent='Jawaban: '+x.jw;li.append(a);hasil.append(li)}};
+q.addEventListener('input',cariKata);
+const bukaCari=on=>{document.body.classList.toggle('cari-buka',on);cb.setAttribute('aria-expanded',on);if(on)q.focus()};
+cb.addEventListener('click',()=>bukaCari(true));
+cari.querySelector('.cari-x').addEventListener('click',()=>bukaCari(false));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('cari-buka'))bukaCari(false)});
+// Klik hasil: soal yang tersembunyi oleh saring topik dimunculkan dulu; di HP panel ditutup agar soal terlihat.
+hasil.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;const t=document.getElementById(a.hash.slice(1));
+  if(t&&t.hidden){const kf=document.getElementById('kf');kf.value='';kf.dispatchEvent(new Event('change'))}
+  bukaCari(false)});
