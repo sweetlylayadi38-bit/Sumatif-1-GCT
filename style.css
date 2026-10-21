@@ -117,3 +117,13 @@ details>p{margin:.45rem 0}
 .player select,.kf select{font:inherit;font-size:1rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:.55rem .5rem;min-height:44px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 @media (min-width:90rem){.player{position:fixed;top:1rem;right:1rem;z-index:6;margin:0}}
+/* Rangkuman cepat: satu baris per kuliah, buka untuk poin kunci */
+.rk details{border-top:1px solid var(--line)}
+.rk details:last-child{border-bottom:1px solid var(--line)}
+.rk summary{width:100%;gap:.5rem;padding:.35rem 0;color:var(--fg)}
+.rk summary::before{color:var(--accent)}
+.rkk{font:700 .95rem var(--display);color:var(--accent);min-width:2.4em}
+.rkn{margin-left:auto;font-weight:600;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.rk details ul{margin:.1rem 0 .4rem}
+.rk details li{margin:.35rem 0}
+.rk details p{margin:.2rem 0 .9rem}
