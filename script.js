@@ -25,9 +25,11 @@ document.querySelectorAll('[id^="y2"]>.rstall').forEach(b=>b.insertAdjacentHTML(
 const skor=()=>document.querySelectorAll('.skor').forEach(p=>{const s=p.closest('[id^="y2"]')||document,
   n=s.querySelectorAll('ol[data-done]').length,x=s.querySelectorAll('ol[data-done]>li.no').length;
   p.textContent=n?`Dijawab ${n} · Benar ${n-x} · Salah ${x} · Nilai ${Math.round((n-x)/n*100)}%`:'Belum ada soal yang dijawab.'});
-// Buka/tutup semua kunci: tandai pilihan benar (li.key) sekali, lalu tampilkan lewat kelas .lihat-kunci di body.
+// Buka/tutup semua kunci: tandai pilihan benar (li.key) sekali, tampilkan lewat kelas .lihat-kunci di body,
+// sekaligus buka (atau tutup) semua pembahasan soal.
 const kunci=b=>{if(!document.querySelector('li.key'))document.querySelectorAll('ol[data-k]').forEach(o=>o.children[o.dataset.k]?.classList.add('key'));
-  b.textContent=document.body.classList.toggle('lihat-kunci')?'Sembunyikan jawaban benar':'Buka semua jawaban benar'};
+  const on=document.body.classList.toggle('lihat-kunci');document.querySelectorAll('.q details').forEach(d=>d.open=on);
+  b.textContent=on?'Tutup semua jawaban dan pembahasan':'Buka semua jawaban benar dan pembahasan'};
 addEventListener('load',skor);
 
 // Pemutar musik: pilih lagu lewat <select>, lanjut otomatis ke lagu berikutnya.

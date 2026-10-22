@@ -92,7 +92,7 @@ a.kt:hover{border-color:var(--accent)}
 button.cta{font:inherit;font-weight:600;color:var(--accent);background:none;cursor:pointer}
 .years .cta{margin:0}
 .src+.rstall{margin:0 0 .4rem}
-.q li.ok::after{content:" (benar)";font-weight:600}
+.q li.ok::after,.lihat-kunci .q li.key::after{content:" (benar)";font-weight:600}
 .q li.no::after{content:" (salah)";font-weight:600}
 .qi{display:block;max-width:min(100%,30rem);height:auto;background:#fff;border-radius:var(--r);margin:.6rem 0;filter:brightness(.88)}
 .q .tw th,.q .tw td{min-width:4rem}
