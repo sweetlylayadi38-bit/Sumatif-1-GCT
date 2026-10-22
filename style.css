@@ -147,14 +147,16 @@ details>p{margin:.45rem 0}
 .cari-top{display:flex;align-items:center;justify-content:space-between}
 .cari-lbl{font:700 1rem var(--display);color:var(--accent)}
 .cari-x{font:600 1rem var(--body);color:var(--muted);background:none;border:1px solid var(--line);border-radius:var(--r);min-width:44px;min-height:44px;cursor:pointer}
-#q{font:inherit;font-size:1rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:.6rem .7rem;min-height:44px;width:100%}
+#q{font:inherit;font-size:1rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:.6rem .7rem;width:100%;resize:vertical;min-height:6rem}
 #q:focus{border-color:var(--accent);outline:none}
+.mdl{display:flex;gap:.5rem;border:0;margin:0;padding:0}
+.mdl label{flex:1}
+.mdl input{position:absolute;opacity:0;pointer-events:none}
+.mdl span{display:flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--line);border-radius:var(--r);font-weight:600;cursor:pointer;color:var(--muted)}
+.mdl input:checked+span{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.mdl input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.cari-kirim{margin:0;justify-content:center;background:var(--accent);color:var(--bg);cursor:pointer;font:inherit;font-weight:700}
 .cari-info{margin:0;font-size:.85rem;color:var(--muted)}
-.cari-hasil{list-style:none;margin:0;padding:0;overflow-y:auto;overscroll-behavior:contain}
-.cari-hasil button{all:unset;box-sizing:border-box;width:100%;display:grid;gap:.2rem;padding:.6rem .3rem;border-top:1px solid var(--line);cursor:pointer;color:var(--fg)}
-.cari-hasil button:hover,.cari-hasil button:focus-visible{background:var(--accent-soft)}
-.cari-hasil b{font:600 .8rem var(--body);color:var(--accent)}
-.cari-hasil span{font-size:.92rem;line-height:1.45;color:var(--fg)}
 /* sorotan sesaat pada bagian materi yang dituju */
 .kena{animation:kena 2.6s ease-out}
 @keyframes kena{0%,35%{background:rgb(212 168 130 / .28);box-shadow:0 0 0 .35rem rgb(212 168 130 / .28)}100%{background:transparent;box-shadow:0 0 0 .35rem transparent}}
@@ -163,3 +165,13 @@ details>p{margin:.45rem 0}
   .cari-btn,.cari-x{display:none}
   #cari{display:flex;inset:5rem 1rem auto auto;width:21rem;max-height:calc(100vh - 6rem);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 8px 30px rgb(0 0 0 / .4)}
 }
+
+/* Mnemonik dan tombol Tanya Claude AI */
+.mn{margin:1.6rem 0 0;padding:.2rem 1rem .8rem;border-left:2px solid var(--accent);border-top:1px dashed var(--line);background:var(--accent-soft);max-width:72ch}
+.mn h4{color:var(--accent)}
+.mn-g{margin:.5rem 0 .8rem;padding:.5rem .8rem;border:1px solid var(--line);border-radius:var(--r);background:var(--th)}
+.mn-g ul{margin:.3rem 0 .5rem}
+.mn ul{padding-left:1.1rem}
+.mn-t{display:inline-block;font:600 .74rem/1.2 var(--body);color:var(--accent);border:1px solid var(--accent);border-radius:var(--r);padding:.15em .45em;margin-right:.35em;vertical-align:.05em}
+.mn-q{margin:.7rem 0;padding:.1rem .8rem .3rem;border-left:2px dashed var(--accent);background:var(--th)}
+.mn-q p{margin:.4rem 0}

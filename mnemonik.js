@@ -1,0 +1,196 @@
+// Mnemonik per kuliah. Kunci = nomor butir di daftar "Sering keluar di Sumatif 1" tiap kuliah (mulai 0).
+// Tiap butir: [nomor, label, html]. "g" = ringkasan "Gabung semua" yang hanya tampil di rangkuman.
+// Soal yang tertaut ke butir itu (lewat label tahun·nomor) otomatis mendapat mnemonik yang sama di pembahasannya.
+const MN={
+k1:{g:`<b>Gabung semua, persarafan kemih:</b><ul><li><b>Parasimpatis = Pipis</b>: detrusor kontraksi (S2-S4).</li><li><b>Simpatis = Simpan</b>: detrusor relaks, sfingter interna menutup (L1-L2).</li><li><b>Eksterna = Eksplisit</b>: satu-satunya yang volunter, n. pudendus.</li></ul>`,
+i:[
+[0,"Ureter wanita","<b>Water under the bridge</b>: ureter (air) lewat di bawah a. uterina (jembatan). Klem jembatan saat histerektomi, air ikut terjepit."],
+[1,"Cedera ureter pasca histerektomi","<b>Klem salah tempat</b>: ureter terjepit di bawah a. uterina, maka bagian atasnya melebar (hidroureter, hidronefrosis). Pelebaran adalah akibat, bukan penyebab."],
+[2,"Ejakulasi retrograd","<b>Interna lemah = semen mundur</b>. Sphincter vesicae = interna (polos, simpatis). Penjaga pintu belakang jebol, semen lari ke vesika."],
+[3,"Ejakulasi normal","<b>Interna menutup saat ejakulasi</b> supaya semen maju, tidak masuk vesika. Berlawanan dengan lemahnya interna yang membuat semen mundur."],
+[4,"Inkontinensia stres pascapersalinan","<b>Habis lahiran, otot lelah</b>: yang lemah sphincter externus dan otot dasar panggul (diafragma urogenital), bukan detrusor."],
+[5,"Abses perinefrik","<b>Gerota penjaga gerbang</b>: lokasi di lemak perirenal, pembatas = fascia renalis. Capsula fibrosa bukan pembatas."],
+[6,"Sistostomi suprapubik","<b>Retzius = Retro-pubis</b>: jarum masuk di atas pubis lewat spatium retropubicum, bukan retroperitoneale."],
+[7,"Nyeri batu ureter abdominal","<b>Imus = 12 (T12)</b>: n. splanchnicus thoracicus imus. Urutan: major, minor, imus (dari atas ke bawah)."],
+[8,"Nyeri alih ke lipat paha","<b>L1-L2 = Lipat</b>: nn. splanchnici lumbales L1-L2 membawa nyeri batu ureter bawah ke lipat paha dan paha anteromedial."],
+[9,"Nyeri vesica","<b>S2-S3-S4 = Pelvici, Parasimpatis, Pipis</b>: nyeri suprapubik vesica lewat nn. splanchnici pelvici."],
+[10,"Kontraksi detrusor","<b>Parasimpatis = Pipis</b> (detrusor kontraksi, nn. splanchnici pelvici). <b>Simpatis = Simpan</b> (detrusor relaks)."],
+[11,"Yang volunter","<b>Eksterna = Eksplisit</b>: otot lurik, n. pudendus, bisa disuruh. Interna dan detrusor jalan sendiri."],
+[12,"Uretra pria","<b>P-M-S</b>: <b>P</b>rostatica <b>P</b>aling lebar, <b>M</b>embranacea <b>M</b>epet (tersempit), <b>S</b>pongiosa <b>S</b>epanjang (terpanjang). BPH menekan prostatica."],
+[13,"Posisi prostat","<b>Prostat di atas eksterna, di depan rektum</b>: posterior = rektum, inferior = sphincter urethrae externus."],
+[15,"Penyempitan ureter","<b>3P</b>: <b>P</b>elviureteric junction, <b>P</b>elvic brim (persilangan a. iliaca), <b>P</b>enetrasi vesika (intramural). Batu atas tertambat di yang pertama."],
+[16,"Vena gonadalis","<b>Kiri nyambung ginjal, kanan ke kava</b>: v. gonadalis kiri bermuara ke v. renalis kiri, maka nutcracker memunculkan varikokel kiri."],
+[17,"Letak dan asal ginjal","<b>Retro dan Tengah</b>: retroperitoneal, dari intermediate (tengah) mesoderm."],
+[18,"Sintopi ginjal","<b>Hepar menindih kanan</b>: ginjal kanan lebih rendah. Kiri bertetangga colon descendens dan lien."],
+[21,"Nefrektomi parsial","<b>Segmentalis = end artery</b>: satu segmen satu arteri, potong per segmen aman."],
+]},
+k2:{g:`<b>Gabung semua, sawar filtrasi (urutan dari darah):</b><ul><li><b>E-M-P</b>: Endotel, Membran basal, Podosit.</li><li><b>Hematuria = Endotel</b> (darah lolos di pintu pertama).</li><li><b>Proteinuria = Podosit</b> (protein lolos di pintu terakhir).</li></ul>`,
+i:[
+[0,"Renin dan AJG","<b>M-G-M</b>: <b>M</b>akula densa (sensor Na⁺), <b>G</b>ranular/JG (gudang dan penghasil renin), <b>M</b>esangial ekstraglomerular (kurir sinyal). Renin keluar dari yang granular."],
+[1,"Urotel vesika","<b>Kosong = tebal, penuh = tipis</b>: kosong &gt;5 lapis, sel payung menggembung. Penuh 2-3 lapis, sel payung memipih, seperti balon yang ditiup."],
+[2,"GN pasca infeksi","<b>Malpighi mampet = nefritik</b>: hematuria, proteinuria, edema pasca infeksi menunjuk ke korpuskel ginjal (glomerulus + Bowman)."],
+[3,"Sindrom nefrotik","<b>Pedikel Pipih = Protein Pergi</b>: pedikel podosit mendatar, proteinuria masif."],
+[4,"Lamina propria uretra","<b>Longgar = lembek, mudah bengkak</b>: jaringan ikat longgar cepat edema saat ISK."],
+[5,"Hematuria glomerular","<b>Darah lolos = pintu pertama (endotel berpori)</b>. Bandingkan: protein lolos = pintu terakhir (podosit)."],
+[6,"Sawar filtrasi","<b>E-M-P</b>: Endotel bertingkap, Membran basal (kolagen IV), Podosit. Urutan dari darah ke ruang Bowman."],
+[7,"Sekresi K⁺ koligens","<b>Prinsipal = Potasium</b> (Na⁺ masuk, K⁺ keluar, dirangsang aldosteron). <b>Interkalaris = Ion asam</b> (H⁺ dan HCO₃⁻). Spironolakton menahan K⁺."],
+[8,"Uretra prostatika","<b>BPH = prostatika pepet</b>: bagian terlebar yang justru dijepit prostat. Epitel proksimalnya transisional."],
+[9,"Perdarahan nefron","<b>Aferen = masuk, Eferen = Ekspor</b>: darah masuk glomerulus lewat aferen. Eferen nefron kortikal ke kapiler peritubular, jukstamedular ke vasa rekta."],
+[11,"Otot polos 3 lapis","<b>Vesika = 3 lapis</b> saling tumpang tindih. Ureter hanya 3 lapis di 1/3 distal, 2/3 proksimal cuma 2."],
+]},
+k3:{g:`<b>Gabung semua, nasib cairan di sepanjang nefron:</b><ul><li><b>Desendens</b>: air keluar, memekat.</li><li><b>Asendens</b>: garam keluar, mengencer.</li><li><b>Koligens (kolektivus)</b>: air keluar hanya jika ada ADH.</li></ul><b>Tambahan koligens, ingat pasangan hormon:</b><ul><li><b>ADH untuk air.</b></li><li><b>Aldosteron untuk garam</b>: Na⁺ masuk, K⁺ keluar.</li></ul>`,
+i:[
+[0,"Reabsorpsi terbanyak","<b>Proksimal Paling Banyak (±65%)</b>. ADH cuma bonus di distal akhir dan koligens."],
+[1,"Regulasi GFR","<b>Selang air</b>: aferen = keran masuk (buka ↑GFR, tutup ↓GFR). Eferen = keran keluar (tutup ↑GFR karena tertahan, buka ↓GFR). <b>ANP satu-satunya regulator di tabel yang menaikkan GFR.</b>"],
+[2,"Glukosa dan Tm","<b>SGLT numpang Na⁺ masuk, GLUT santai keluar</b>. Kendaraan penuh (Tm 375 mg/menit) = glukosa tumpah ke urin."],
+[3,"Klirens kreatinin","<b>P-K-I</b>: klirens <b>P</b>AH &gt; <b>K</b>reatinin &gt; <b>I</b>nulin (= GFR). Kreatinin sedikit disekresi, jadi sedikit di atas GFR."],
+[4,"Jenis transpor","<b>ATPase Primer, SGLT Sekunder, GLUT Fasilitasi</b>: primer butuh ATP langsung, sekunder numpang Na⁺, GLUT difusi."],
+[5,"Retensi garam air","<b>Koligens = kontrol akhir</b>: aldosteron untuk garam (Na⁺ masuk, K⁺ keluar), ADH untuk air."],
+[6,"Autoregulasi","<b>Aferen atur otomatis</b>: TD turun, aferen buka. TD naik, aferen tutup. Bekerja pada MAP 80-180 mmHg."],
+[7,"Volunter dan detrusor","<b>Parasimpatis Pipis, Simpatis Simpan, Pudendus Perintah sadar</b>: detrusor kontraksi = parasimpatis, interna menutup = simpatis, eksterna volunter = n. pudendus."],
+[8,"Dehidrasi","<b>Kering = ADH naik</b>: AQP-2 muncul di koligens, urin pekat. Renin naik, ANP turun. Ansa asendens tetap kedap air."],
+[9,"Diabetes insipidus","<b>Tanpa ADH, ujung koligens paling encer</b> (±100 mOsM). Insipidus = hambar."],
+[10,"Countercurrent","<b>Henle Membuat, Vasa Menjaga</b>: multiplier (ansa Henle) membuat gradien, exchanger (vasa recta) mempertahankan secara pasif."],
+[11,"Sistem portal","<b>Aferen lebar, eferen sempit</b>: tekanan tertahan di glomerulus, PGC tetap tinggi. Filtrasi tanpa reabsorpsi."],
+[12,"Klirens terbesar","<b>P-K-I</b>: PAH terbesar (= aliran plasma ginjal), lalu kreatinin, lalu inulin (= GFR)."],
+[13,"Aparatus jukstaglomerular","<b>M-G-M</b>: Makula densa = sensor, Granular = penghasil renin, Mesangial ekstraglomerular = kurir."],
+[14,"Distal awal","<b>Asendens kedap air + pompa garam = encer</b>, apa pun kadar ADH. Hipotonik di distal awal."],
+[16,"Spironolakton","<b>Spirono-LAKton = Lawan Aldosteron, Kalium Ketahan</b>: sekresi K⁺ turun, Na⁺ ikut terbuang."],
+[17,"Furosemid","<b>Loop = Lenyapkan gradien</b>: hambat Na-K-2Cl di asendens tebal, gradien medula hilang, urin tidak bisa pekat."],
+[18,"Tekanan filtrasi","<b>55 − 30 − 15 = 10</b> (lima-lima, tiga-nol, satu-lima). Pada soal: PGC − P Bowman − π."],
+[19,"DI sentral vs nefrogenik","<b>Sentral = Sumber</b> (ADH tidak dibuat). <b>Nefrogenik = Nolak</b> (reseptor V2/AQP2 tidak merespons, mis. litium)."],
+[20,"Ansa desendens","<b>Desendens: air keluar, memekat.</b> Asendens: garam keluar, mengencer. Koligens: air keluar hanya jika ada ADH."],
+]},
+k4:{g:`<b>Gabung semua, pasangan hormon:</b><ul><li><b>ADH untuk air</b>: dibuat di hipotalamus, disimpan dan dilepas hipofisis posterior.</li><li><b>Aldosteron untuk garam</b>: Na⁺ masuk, K⁺ keluar.</li><li><b>ANP lawan keduanya</b>: buang garam dan air.</li></ul>`,
+i:[
+[0,"Tempat ADH dibuat","<b>Atas bikin, bawah simpan</b>: hipotalamus membuat, hipofisis posterior hanya menyimpan dan melepas."],
+[1,"Asidosis dan K⁺","<b>Asam masuk, Kalium kabur</b>: H⁺ masuk sel, K⁺ keluar. K⁺ plasma naik, tetapi K⁺ intrasel dan sekresi K⁺ tubulus turun."],
+[2,"Infus hipertonik","<b>Hipertonik menyedot</b>: NaCl 3% menarik air dari sel, CES naik, CIS turun. NaCl 0,9% hanya CES. Air dan D5% dibagi ke CES dan CIS."],
+[3,"Aldosteron","<b>Aldosteron untuk garam</b>: sel prinsipal koligens, Na⁺ masuk, K⁺ keluar. Naik saat Na⁺ atau volume CES turun."],
+[4,"Keringat diganti air","<b>Air tawar mengencerkan CES</b>: osmolaritas turun, air masuk sel, CIS naik dan CES turun."],
+[5,"Tidak minum 24 jam","<b>Haus = ADH naik, renin naik, ANP turun</b>. Koligens jadi permeabel air."],
+[7,"Hitungan kompartemen","<b>2/3 dalam, 1/3 luar, lalu 4:1</b>: CIS 2/3, CES 1/3. Di CES, interstisial 80% : plasma 20% (4 : 1)."],
+[8,"Diabetes insipidus","<b>Insipidus = hambar</b>: urin banyak dan encer, Na⁺ dan osmolaritas plasma naik, volume turun."],
+[9,"Dapar","<b>B-P-F</b>: <b>B</b>ikarbonat bos di CES, <b>P</b>rotein di CES dan CIS, <b>F</b>osfat di CIS dan urin (asam tertitrasi)."],
+[10,"Diet tinggi garam","<b>Garam banyak: renin turun, ANP naik</b>. Volume CES naik jadi sistem RAA direm."],
+[11,"Spironolakton","<b>Spiro hemat Kalium</b>: antagonis aldosteron, sekresi K⁺ turun."],
+[12,"Rangsang ADH vs renin","<b>O → ADH, T → Renin</b>: osmolaritas naik memicu ADH (terkuat), tekanan darah turun memicu renin."],
+[13,"Asupan K⁺ tinggi","<b>K⁺ banyak, aldosteron naik, K⁺ dibuang di koligens</b>."],
+[14,"Edema","<b>V-P-A-L</b>, empat sebab edema: <b>V</b>ena (tekanan naik), <b>P</b>ermeabilitas naik, <b>A</b>lbumin turun, <b>L</b>imfe tersumbat. Soal ini: albumin turun, onkotik turun."],
+[16,"KCl intravena","<b>KCl IV cepat = suntik henti jantung</b>: hiperkalemia, aritmia."],
+]},
+k5:{g:`<b>Gabung semua, baca gangguan asam basa:</b><ul><li><b>ROME</b>: <b>R</b>espiratorik <b>O</b>pposite (pH dan PCO₂ berlawanan arah), <b>M</b>etabolik <b>E</b>qual (pH dan HCO₃⁻ searah).</li><li><b>Urutan pertahanan</b>: bufer (detik), paru (menit), ginjal (hari).</li><li><b>Muntah = basa naik, diare = asam naik.</b></li></ul>`,
+i:[
+[0,"Muntah","<b>Muntah membuang asam (HCl)</b>: asam lambung hilang, basa menumpuk, alkalosis metabolik. Bukan karena bikarbonat hilang."],
+[1,"Lab pasien muntah","<b>Muntah: pH naik, PCO₂ naik, K⁺ turun</b>. Napas melambat untuk kompensasi, kalium ikut terbuang."],
+[2,"DM dan keton","<b>Keton Kuat = asidosis metabolik</b>: lemak dibakar, aseton = napas berbau buah, napas Kussmaul."],
+[3,"Hipoksia","<b>Tanpa O₂, jalan anaerob, hasilnya laktat</b>. Contoh: pendaki, syok, olahraga berat."],
+[4,"Brønsted-Lowry","<b>Asam donor, basa akseptor</b>: yang kehilangan H⁺ menjadi basa konjugat (HNO₃ → NO₃⁻). Yang menerima H⁺ menjadi asam konjugat."],
+[5,"Sekresi H⁺ proksimal","<b>Proksimal pungut bikarbonat</b>: H⁺ disekresi untuk menjemput HCO₃⁻ (±80%), belum ekskresi H⁺ bersih."],
+[6,"PPOK dan histeria","<b>Paru penuh CO₂ = asidosis respiratorik</b> (PPOK, asma). Histeria napas cepat = alkalosis respiratorik."],
+[7,"Gangguan respiratorik","<b>ROME</b>: Respiratorik Opposite. PCO₂ naik, pH turun (asidosis). PCO₂ turun, pH naik (alkalosis)."],
+[8,"Bufer","<b>Bufer = spons H⁺</b>: ditetesi sedikit HCl, H⁺ ditangkap HCO₃⁻, pH hanya turun sedikit."],
+[9,"pH dan pOH","<b>pH + pOH = 14</b>. pH 9, maka pOH 5, maka [OH⁻] = 10⁻⁵. Angka di pangkat sama dengan p-nya."],
+[10,"Alkalosis respiratorik","<b>K-H-E-V</b>: <b>K</b>etinggian, <b>H</b>isteria, <b>E</b>mboli paru, <b>V</b>entilator berlebih. AGD: pH naik, PCO₂ turun."],
+[11,"Asidosis dan K⁺","<b>Asam masuk, Kalium kabur</b>: K⁺ plasma naik (DKA hiperkalemia), K⁺ intrasel dan sekresi tubulus turun."],
+[12,"Bufer utama","<b>B-P-F</b>: <b>B</b>ikarbonat = CES, <b>P</b>rotein = CES dan CIS, <b>F</b>osfat = CIS dan urin (asam tertitrasi)."],
+[13,"Olahraga berat","<b>Laktat naik, napas cepat</b>: pH turun, PCO₂ turun. Bukan alkalosis walau napas cepat."],
+[14,"Hitung bufer","<b>Asam tambah, basa kurang</b>: HCl menambah asam dan mengurangi basa dengan jumlah sama. Lalu pH = pKa + log (basa/asam)."],
+[15,"Kompensasi ginjal","<b>Respiratorik kronik, ginjal turun tangan</b>: HCO₃⁻ naik, NH₄⁺ urin naik, pH urin turun."],
+[16,"Amonia ginjal","<b>Glutamin → Glutaminase → Amonia</b>. NH₃ + H⁺ jadi NH₄⁺ yang terperangkap di lumen karena tidak permeabel."],
+[18,"Diuretik dan racun","<b>Muntah, diuretik, antasid, steroid = basa naik</b>. Salisilat, metanol, etilen glikol = asam naik (MUDPILES)."],
+[19,"Bufer asam amino","<b>Alkalosis: -COOH lepas H⁺ (donor). Asidosis: -NH₂ ambil H⁺ (akseptor).</b> Donor gugus R: sistein dan histidin. Hb mengikat 2 H⁺."],
+[21,"Lini pertahanan","<b>B-P-G</b>: <b>B</b>ufer detik, <b>P</b>aru menit, <b>G</b>injal hari (paling tuntas)."],
+[22,"Uremia","<b>Uremia: fosfat dan sulfat menumpuk</b>, anion gap naik, asidosis metabolik."],
+[23,"Asam volatil","<b>Volatil = karbonat, lewat paru. Fixed = ginjal.</b> CO₂ dari siklus Krebs."],
+]},
+k6:{g:`<b>Gabung semua, ISK:</b><ul><li><b>Paling umum selalu E. coli (UPEC)</b>; S. saprophyticus nomor dua pada wanita muda.</li><li><b>Kultur adalah kunci</b>: baku emas, wajib pada kambuh dan pielonefritis.</li><li><b>Batas CFU</b>: sistitis wanita 10³, pria 10⁴, hamil 10⁵ (makin berat makin tinggi).</li></ul>`,
+i:[
+[0,"Wanita muda","<b>Ec dulu, baru Sapro</b>: UPEC tersering. S. saprophyticus 5-10%, khas wanita muda tetapi bukan yang terbanyak."],
+[1,"Sistitis berulang","<b>Kapan pun, E. coli</b>: ISK komplikata, nonkomplikata, dan berulang tetap E. coli."],
+[2,"Bayi demam","<b>Bayi demam tanpa fokus, pikirkan ginjal</b>: demam tinggi, sakit berat, leukositosis = pielonefritis akut."],
+[3,"Endokarditis","<b>Jantung kotor, ginjal ikut abses</b>: S. aureus, emboli septik lewat darah (hematogen)."],
+[4,"Silinder","<b>Leukosit = infeksi ginjal atas, eritrosit = glomerulus</b>: silinder leukosit khas pielonefritis."],
+[5,"Sterilitas urin","<b>pH asam + Tamm-Horsfall</b>: TH menolak bakteri menempel (anti-adhesi)."],
+[6,"Bakteriuria","<b>B-A-P</b>: <b>B</b>akteriuria = ada bakteri, <b>A</b>BU = ≥10⁵ tanpa gejala, <b>P</b>iuria = leukosit."],
+[7,"Baku emas","<b>Kultur = Kunci</b> diagnosis ISK."],
+[8,"Kambuh","<b>Kambuh: kultur dan antibiotik</b>, bukan salah satu."],
+[9,"Batas CFU","<b>Sistitis Seribu, Pria Sepuluh ribu, Hamil Seratus ribu</b>: makin kompleks, batas makin tinggi."],
+[10,"Sistitis","<b>3S</b>: <b>S</b>uprapubik nyeri, <b>S</b>ering kencing, <b>S</b>akit saat kencing (anyang-anyangan). Letaknya vesika urinaria."],
+[11,"Indikasi kultur","<b>Kultur wajib: Kambuh dan Pielo</b>."],
+[12,"Pielonefritis","<b>Tiga serangkai</b>: kultur urin, kultur darah, uji kepekaan."],
+[13,"Proteus","<b>Proteus Pembuat batu</b>: urease membuat pH basa lalu batu struvit. ISK relaps pada kelainan struktur."],
+[14,"ISK asendens","<b>P-U-V-B-G</b>: <b>P</b>eriuretra → <b>U</b>retra → <b>V</b>esika → <b>B</b>iofilm → <b>G</b>injal."],
+[15,"ABU","<b>ABU diobati hanya pada Ibu Hamil</b>."],
+]},
+k7:{g:`<b>Gabung semua, parasit dan ginjal:</b><ul><li><b>Falciparum = Fana cepat</b>: AKI akut, reversibel.</li><li><b>Malariae = Menahun</b>: sindrom nefrotik, progresif.</li><li><b>Ke Pelvis = kiluria, ke Kulit = lymph scrotum, ke Tunika = hidrokel.</b></li></ul>`,
+i:[
+[0,"Kiluria","<b>Ke Pelvis = Kiluria</b>: limfe pecah ke pelvis renalis, urin seperti susu. Ke kulit skrotum = lymph scrotum. Ke tunika vaginalis = hidrokel."],
+[1,"Sandy patches","<b>Pasir = telur mati yang mengapur</b>: fibrosis dan kalsifikasi telur Schistosoma di dinding vesika."],
+[2,"Filariasis genitourinaria","<b>Bancrofti ganas ke genitalia</b>: hidrokel, kiluria, elefantiasis skrotum hanya oleh W. bancrofti. S. haematobium tidak endemik di Indonesia."],
+[3,"Stadium filaria","<b>L3 Lompat masuk, Mikrofilaria Malam</b>: L3 infektif (nyamuk ke kulit), mikrofilaria diagnostik (darah malam, juga urin kilus), cacing dewasa di limfe."],
+[4,"Black water fever","<b>Urin hitam = hemoglobin</b>: hemolisis intravaskular masif, parasit sering negatif, pemicu kina atau defisiensi G6PD."],
+[5,"AKI falciparum","<b>Falciparum Fatal, eritrosit Nempel</b>: sitoadherens dan sekuestrasi menyumbat kapiler, tubulus iskemia."],
+[6,"P. malariae","<b>Malariae = Menahun</b>: kompleks imun di glomerulus, GN membranoproliferatif, sindrom nefrotik anak 5-8 tahun."],
+]},
+k8:{g:`<b>Gabung semua, urinalisis:</b><ul><li><b>Nitrit negatif palsu: K-K-V.</b></li><li><b>Silinder terbentuk dari Tamm-Horsfall</b>, hialin normal 0-2/LPK.</li><li><b>Keruh = sel, bukan zat terlarut.</b></li></ul>`,
+i:[
+[0,"Endokarditis","<b>Jantung kotor, ginjal ikut abses</b>: emboli septik lewat darah."],
+[1,"pH urin","<b>Asam = Aman</b>: pH asam menjaga sterilitas urin. Kateter dan uretra pendek wanita justru faktor risiko."],
+[2,"Nitrit negatif palsu","<b>K-K-V</b>: <b>K</b>urang waktu (urin &lt;4 jam di vesika), <b>K</b>uman tanpa reduktase, <b>V</b>itamin C (asam askorbat)."],
+[3,"Epitel transisional","<b>Transisional = jalur tengah</b> (pelvis sampai uretra proksimal): naik pada sistitis. Skuamosa = kontaminasi. Epitel tubulus = nekrosis tubulus."],
+[4,"Silinder","<b>Matriks = Tamm-Horsfall</b>: dasar semua silinder, hialin normal 0-2/LPK."],
+[5,"Urin keruh","<b>Keruh karena sel</b>: leukosit (piuria). Zat terlarut (urobilinogen, albumin) tidak mengeruhkan."],
+[6,"Glukosuria","<b>Lewat ambang = tumpah</b>: glukosa darah &gt;160-180 mg/dL melebihi kapasitas reabsorpsi."],
+]},
+k9:{g:`<b>Gabung semua, anion gap:</b> AG = Na⁺ − (Cl⁻ + HCO₃⁻). Penyebab AG naik: <b>MUDPILES</b>: <b>M</b>etanol, <b>U</b>remia, <b>D</b>KA, <b>P</b>ropilen glikol, <b>I</b>soniazid/besi, <b>L</b>aktat, <b>E</b>tilen glikol, <b>S</b>alisilat.`,
+i:[
+[0,"Hiponatremia","<b>ADH kebanyakan, air tertahan, Na⁺ terencerkan</b> (SIADH, euvolemik)."],
+[1,"Muntah lama","<b>Muntah: HCl hilang, K⁺ ikut terbuang</b>: alkalosis metabolik dengan hipokalemia."],
+[2,"Pseudohiponatremia","<b>Lemak atau protein tinggi = Na⁺ palsu</b>: osmolalitas plasma tetap normal."],
+[3,"Hemolisis sampel","<b>Eritrosit pecah, K⁺ bocor</b>: K⁺ naik palsu karena K⁺ intrasel eritrosit sangat tinggi."],
+[4,"Uremia","<b>U di MUDPILES</b>: fosfat dan sulfat menumpuk, AG tinggi, pH turun dengan PCO₂ turun (kompensasi)."],
+[5,"Hiperkalemia","<b>Asam masuk, Kalium kabur</b>: KAD (insulin kurang, K⁺ keluar sel). KCl IV dan gagal ginjal juga menaikkan K⁺."],
+[6,"Diabetes insipidus","<b>Insipidus = hambar</b>: urin banyak dan encer, Na⁺ dan osmolalitas plasma naik."],
+[8,"Anion gap","<b>MUDPILES</b>: laktat, keton, fosfat, sulfat menaikkan AG. Bikarbonat bukan penyebab, justru turun."],
+[9,"Sampel AGD","<b>Udara = CO₂ kabur</b>: sampel terpapar udara membuat PCO₂ turun palsu."],
+]},
+k10:{g:`<b>Gabung semua, nefritik vs nefrotik:</b><ul><li><b>Nefritik Naik</b> volume (retensi garam air), hematuria, hipertensi, AKI.</li><li><b>Nefrotik Nurun</b> albumin: proteinuria masif, edema anasarka.</li><li><b>Steroid untuk nefrotik, antibiotik dan diuretik untuk GNAPS.</b></li></ul>`,
+i:[
+[0,"Pasti GNAPS","<b>ASO naik, C3 turun, C4 normal</b>: C3 terpakai kompleks imun."],
+[1,"SN idiopatik","<b>P-A-L-E</b>: <b>P</b>roteinuria masif, <b>A</b>lbumin turun (&lt;3 g/dL), <b>L</b>ipid naik, <b>E</b>dema anasarka. Eritrosit minimal, TD normal."],
+[2,"Terapi GNAPS","<b>G-F-A</b>: <b>G</b>aram dan protein rendah, <b>F</b>urosemid, <b>A</b>moksisilin."],
+[3,"Edema nefritik","<b>Nefritik Naik volume, Nefrotik Nurun albumin</b>: edema nefritik karena volume intravaskular naik, bukan onkotik turun."],
+[4,"Diagnosis GN akut","<b>H-E-H-A</b>: <b>H</b>ematuria (urin merah), <b>E</b>dema, <b>H</b>ipertensi, <b>A</b>zotemia, setelah faringitis atau impetigo."],
+[5,"Terapi SN","<b>Steroid obat sebab, diuretik dan albumin hanya meredakan</b>: kausatif SN = kortikosteroid."],
+[6,"Hematuria glomerular","<b>Darah lolos = pintu pertama (endotel berpori)</b>. Pada diabetik, perubahan sawar filtrasi."],
+[7,"Komplikasi","<b>Nefritik: AKI. Nefrotik: Infeksi, trombosis, syok hipovolemik.</b> IgG ikut bocor, daya tahan turun."],
+[8,"Hipoalbuminemia SN","<b>Proteinuria masif selektif</b>: albumin paling banyak bocor, hipoalbuminemia."],
+[9,"Eradikasi GNAPS","<b>G-F-A</b>: diuretik ± antihipertensi, amoksisilin atau ampisilin untuk eradikasi."],
+[11,"ISK anak","<b>Anak demam tinggi, rewel, silinder leukosit = pielo</b>. Baku emas kultur urin."],
+[12,"Terapi ISK anak","<b>Anak pielo: parenteral 10 hari + rehidrasi</b>. Komplikasi urosepsis. ISK bawah = disuria."],
+]},
+};
+
+// Pasang: blok "Mnemonik" di rangkuman tiap kuliah (sebelum "Sering keluar") dan di pembahasan soal yang tertaut.
+(()=>{
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const perQ={};
+for(const [k,d] of Object.entries(MN)){
+  const rk=document.getElementById('rk-'+k);if(!rk)continue;
+  const lis=[...rk.querySelectorAll('.hy li')];
+  let h=`<div class="mn" data-k="${k}"><h4>Mnemonik</h4>`+(d.g?`<div class="mn-g">${d.g}</div>`:'')+'<ul>';
+  for(const [n,lab,txt] of d.i){
+    h+=`<li><span class="mn-t">${esc(lab)}</span> ${txt}</li>`;
+    const li=lis[n];if(!li)continue;
+    for(const a of li.querySelectorAll('.qs a')){const id=a.hash.slice(1);(perQ[id]??=[]).push([lab,txt])}
+  }
+  h+='</ul></div>';
+  const hy=rk.querySelector('.hy');if(hy)hy.insertAdjacentHTML('beforebegin',h);
+}
+for(const [id,arr] of Object.entries(perQ)){
+  const q=document.getElementById(id);const dt=q&&q.querySelector('details');if(!dt)continue;const ans=dt.querySelector('.ans')||dt.querySelector('summary+p')||dt.querySelector('summary');
+  const seen=new Set(),uniq=arr.filter(([l])=>!seen.has(l)&&seen.add(l)).slice(0,2);
+  ans.insertAdjacentHTML('afterend',`<div class="mn-q"><b>Mnemonik</b>`+uniq.map(([l,t])=>`<p><span class="mn-t">${esc(l)}</span> ${t}</p>`).join('')+'</div>');
+}
+})();

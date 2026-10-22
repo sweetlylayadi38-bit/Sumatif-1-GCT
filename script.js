@@ -61,32 +61,19 @@ document.addEventListener('click',e=>{const b=e.target.closest('.tts');if(!b)ret
   if(b!==vb){vset(vb,false);vb=b;vo.src=b.dataset.a}
   au.pause();vo.play().catch(()=>{b.textContent='Audio gagal dimuat'})});
 au.addEventListener('play',()=>vo.pause());
-// Cari di materi kuliah K1-K10: indeks paragraf, butir, baris tabel, dan kutipan recap (dibuat sekali saat pertama dipakai).
-const cari=document.getElementById('cari'),q=document.getElementById('q'),hasil=cari.querySelector('.cari-hasil'),info=cari.querySelector('.cari-info'),cb=document.querySelector('.cari-btn');
-const INFO='Ketik minimal 2 huruf. Mencari di isi kuliah K1-K10; semua kata harus ada.';
-let idxM=null;
-const norm=s=>s.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'');
-const teksSendiri=el=>[...el.childNodes].filter(n=>!/^(UL|OL)$/.test(n.nodeName)).map(n=>n.textContent).join('').replace(/\s+/g,' ').trim();
-const buatIdx=()=>{idxM=[];document.querySelectorAll('.lec').forEach(sec=>{const h2=sec.querySelector('h2[id^="k"]');if(!h2)return;
-  const kul=h2.querySelector('.kn').textContent,judul=h2.textContent.replace(kul,'').trim();let sub='';
-  sec.querySelectorAll('h3,p,li,tr,blockquote').forEach(el=>{if(el.tagName==='H3'){sub=el.textContent.trim();return}
-    if(el.closest('blockquote')&&el.tagName!=='BLOCKQUOTE')return;
-    const t=el.tagName==='TR'?[...el.cells].map(c=>c.textContent.trim()).filter(Boolean).join(' · '):teksSendiri(el);
-    if(t.length>2)idxM.push({el,kul,judul,sub,t,n:norm(t)})})})};
-const potong=(x,w)=>{const i=Math.max(0,x.n.indexOf(w)-60);return (i?'…':'')+x.t.slice(i,i+190)+(x.t.length>i+190?'…':'')};
-const cariKata=()=>{const kata=norm(q.value).split(/\s+/).filter(w=>w.length>1);hasil.replaceChildren();
-  if(!kata.length){info.textContent=INFO;return}
-  idxM||buatIdx();const cocok=idxM.filter(x=>kata.every(w=>x.n.includes(w)));
-  info.textContent=cocok.length?`${cocok.length} bagian materi ditemukan${cocok.length>50?', 50 pertama ditampilkan':''}.`:'Tidak ditemukan di materi K1-K10. Coba kata lain.';
-  cocok.slice(0,50).forEach(x=>{const li=document.createElement('li'),b=document.createElement('button');b.type='button';
-    b.innerHTML='<b></b><span></span>';b.children[0].textContent=`${x.kul} · ${x.judul}${x.sub?' › '+x.sub:''}`;b.children[1].textContent=potong(x,kata[0]);
-    b.onclick=()=>lompat(x.el);li.append(b);hasil.append(li)})};
-// Lompat: bagian di luar layar dirender belakangan, jadi posisinya dibetulkan beberapa frame sampai diam, lalu disorot.
-const lompat=el=>{bukaCari(false);const h=document.documentElement,sb=h.style.scrollBehavior;h.style.scrollBehavior='auto';let n=0,ok=0,last;
-  const go=()=>{el.scrollIntoView({block:'center'});const y=el.getBoundingClientRect().top;ok=y===last?ok+1:0;last=y;
-    if(ok<3&&++n<30)requestAnimationFrame(go);else{h.style.scrollBehavior=sb;el.classList.remove('kena');void el.offsetWidth;el.classList.add('kena');setTimeout(()=>el.classList.remove('kena'),2700)}};go()};
-q.addEventListener('input',cariKata);
+// Claude AI (pengganti Cari): tulis pertanyaan, pilih Sonnet 5.5 atau Opus 5.5, lalu kirim ke claude.ai.
+// Teks pertanyaan memuat nama model dan disalin ke clipboard; modelnya sendiri dipilih di claude.ai.
+const cari=document.getElementById('cari'),q=document.getElementById('q'),info=cari.querySelector('.cari-info'),cb=document.querySelector('.cari-btn');
+const INFO='Tulis pertanyaan tentang materi K1-K10 atau soal Sumatif 1, pilih model, lalu kirim.';
 const bukaCari=on=>{if(matchMedia('(min-width:88rem)').matches)on=true;document.body.classList.toggle('cari-buka',on);cb.setAttribute('aria-expanded',on);if(on&&document.activeElement!==q&&!matchMedia('(min-width:88rem)').matches)q.focus()};
+const kirim=async()=>{const t=q.value.trim(),m=cari.querySelector('input[name=mdl]:checked').value;
+  if(t.length<2){info.textContent='Tulis pertanyaannya dulu.';q.focus();return}
+  const p=`Saya memilih model Claude ${m}.\n\nKonteks: Recap Modul Ginjal dan Cairan Tubuh (kuliah K1-K10) dan bank soal Sumatif 1 GCT 2017-2023.\n\nPertanyaan: ${t}\n\nJawab dalam bahasa Indonesia.`;
+  let ok=false;try{await navigator.clipboard.writeText(p);ok=true}catch{}
+  window.open('https://claude.ai/new?q='+encodeURIComponent(p.length>1800?p.slice(0,1800)+'…':p),'_blank','noopener');
+  info.textContent=ok?`Teks disalin. Di claude.ai pilih model ${m}.`:`Di claude.ai pilih model ${m}.`};
+cari.querySelector('.cari-kirim').addEventListener('click',kirim);
+q.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();kirim()}});
 cb.addEventListener('click',()=>bukaCari(true));
 cari.querySelector('.cari-x').addEventListener('click',()=>bukaCari(false));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('cari-buka'))bukaCari(false)});
