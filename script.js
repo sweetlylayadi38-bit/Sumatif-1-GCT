@@ -68,7 +68,7 @@ const INFO='Tulis pertanyaan tentang materi K1-K10 atau soal Sumatif 1, pilih mo
 const bukaCari=on=>{if(matchMedia('(min-width:88rem)').matches)on=true;document.body.classList.toggle('cari-buka',on);cb.setAttribute('aria-expanded',on);if(on&&document.activeElement!==q&&!matchMedia('(min-width:88rem)').matches)q.focus()};
 const kirim=async()=>{const t=q.value.trim(),m=cari.querySelector('input[name=mdl]:checked').value;
   if(t.length<2){info.textContent='Tulis pertanyaannya dulu.';q.focus();return}
-  const p=`Saya memilih model Claude ${m}.\n\nKonteks: Recap Modul Ginjal dan Cairan Tubuh (kuliah K1-K10) dan bank soal Sumatif 1 GCT 2017-2023.\n\nPertanyaan: ${t}\n\nJawab dalam bahasa Indonesia.`;
+  const p=`Saya memilih model Claude ${m}.\n\nKonteks: Recap Modul Ginjal dan Cairan Tubuh (kuliah K1-K10) dan bank soal Sumatif 1 GCT 2017-2024.\n\nPertanyaan: ${t}\n\nJawab dalam bahasa Indonesia.`;
   let ok=false;try{await navigator.clipboard.writeText(p);ok=true}catch{}
   window.open('https://claude.ai/new?q='+encodeURIComponent(p.length>1800?p.slice(0,1800)+'…':p),'_blank','noopener');
   info.textContent=ok?`Teks disalin. Di claude.ai pilih model ${m}.`:`Di claude.ai pilih model ${m}.`};
